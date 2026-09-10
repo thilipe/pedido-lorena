@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quer Casar Comigo?</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500;1,9..144,600&family=Karla:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --bg: #fff3ef;
+    --surface: #ffffff;
+    --ink: #3a1420;
+    --muted: #8c5b67;
+    --accent: #e8456b;
+    --accent-ink: #ffffff;
+    --accent-2: #f2a65a;
+    --line: #f0d9d6;
+    --shadow: 0 20px 45px -20px rgba(58, 20, 32, .35);
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg: #240f17;
+      --surface: #331621;
+      --ink: #fce6ea;
+      --muted: #c99ba8;
+      --accent: #ff7091;
+      --accent-ink: #2c0d16;
+      --accent-2: #ffc178;
+      --line: #4a2430;
+      --shadow: 0 20px 45px -18px rgba(0, 0, 0, .55);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg: #240f17;
+    --surface: #331621;
+    --ink: #fce6ea;
+    --muted: #c99ba8;
+    --accent: #ff7091;
+    --accent-ink: #2c0d16;
+    --accent-2: #ffc178;
+    --line: #4a2430;
+    --shadow: 0 20px 45px -18px rgba(0, 0, 0, .55);
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{ margin: 0; padding: 0; }
+
+  body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Karla", ui-sans-serif, system-ui, sans-serif;
+    overflow-x: hidden;
+  }
+
+  .scene{
+    position: relative;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(24px, 6vw, 48px) 16px;
+    background:
+      radial-gradient(60% 50% at 50% 28%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%),
+      var(--bg);
+  }
+
+  .floaties{
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .floaty{
+    position: absolute;
+    bottom: -10%;
+    font-size: clamp(18px, 4vw, 28px);
+    color: var(--accent);
+    opacity: .16;
+    animation: drift 16s linear infinite;
+  }
+  .floaty:nth-child(1){ left: 8%;  animation-duration: 14s; animation-delay: 0s; }
+  .floaty:nth-child(2){ left: 22%; animation-duration: 19s; animation-delay: 2s; font-size: 16px; }
+  .floaty:nth-child(3){ left: 68%; animation-duration: 17s; animation-delay: 1s; }
+  .floaty:nth-child(4){ left: 82%; animation-duration: 22s; animation-delay: 4s; font-size: 14px; }
+  .floaty:nth-child(5){ left: 45%; animation-duration: 20s; animation-delay: 6s; font-size: 20px; }
+
+  @keyframes drift{
+    from{ transform: translateY(0) rotate(0deg); }
+    to{ transform: translateY(-120vh) rotate(18deg); }
+  }
+
+  .stage{
+    position: relative;
+    z-index: 1;
+    width: min(480px, 100%);
+    text-align: center;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 28px;
+    padding: clamp(28px, 6vw, 44px) clamp(20px, 5vw, 36px);
+    box-shadow: var(--shadow);
+  }
+
+  .eyebrow{
+    margin: 0 0 10px;
+    font: 700 .72rem/1 "Karla", sans-serif;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .headline{
+    margin: 0 0 12px;
+    font-family: "Fraunces", ui-serif, Georgia, serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: clamp(2rem, 8vw, 2.9rem);
+    line-height: 1.06;
+    text-wrap: balance;
+  }
+
+  .sub{
+    margin: 0 auto 28px;
+    max-width: 34ch;
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .buttons{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .btn{
+    appearance: none;
+    border: none;
+    cursor: pointer;
+    font: 700 1rem/1 "Karla", sans-serif;
+    padding: 16px 26px;
+    border-radius: 999px;
+    transition: transform .2s ease, box-shadow .2s ease, left .28s cubic-bezier(.2,.8,.3,1.4), top .28s cubic-bezier(.2,.8,.3,1.4);
+  }
+  .btn:focus-visible{
+    outline: 3px solid var(--accent-2);
+    outline-offset: 3px;
+  }
+
+  .btn-yes{
+    background: var(--accent);
+    color: var(--accent-ink);
+    box-shadow: 0 10px 24px -8px color-mix(in srgb, var(--accent) 70%, transparent);
+    animation: glow 2.6s ease-in-out infinite;
+  }
+  .btn-yes:hover{ transform: translateY(-2px) scale(var(--grow, 1)); }
+
+  @keyframes glow{
+    0%, 100%{ box-shadow: 0 10px 24px -8px color-mix(in srgb, var(--accent) 70%, transparent); }
+    50%{ box-shadow: 0 10px 30px -6px color-mix(in srgb, var(--accent) 90%, transparent); }
+  }
+
+  .btn-no{
+    background: transparent;
+    color: var(--muted);
+    border: 1.5px solid var(--line);
+    z-index: 5;
+  }
+
+  .hint{
+    margin: 20px 0 0;
+    min-height: 1.4em;
+    font-size: .85rem;
+    color: var(--muted);
+  }
+
+  .celebration{
+    position: relative;
+    z-index: 1;
+    width: min(480px, 100%);
+    text-align: center;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 28px;
+    padding: clamp(32px, 7vw, 48px) clamp(20px, 5vw, 36px);
+    box-shadow: var(--shadow);
+  }
+
+  #confetti{
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .celebration-content{ position: relative; z-index: 1; }
+
+  .btn-again{
+    margin-top: 22px;
+    background: transparent;
+    color: var(--accent);
+    border: 1.5px solid var(--accent);
+    font-weight: 700;
+  }
+  .btn-again:hover{ background: color-mix(in srgb, var(--accent) 10%, transparent); }
+
+  @media (prefers-reduced-motion: reduce){
+    .floaty{ animation: none; display: none; }
+    .btn-yes{ animation: none; }
+    .btn{ transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="scene" id="scene">
+  <div class="floaties" aria-hidden="true">
+    <span class="floaty">♥</span>
+    <span class="floaty">♥</span>
+    <span class="floaty">♥</span>
+    <span class="floaty">♥</span>
+    <span class="floaty">♥</span>
+  </div>
+
+  <main class="stage" id="stage">
+    <p class="eyebrow">R.S.V.P.</p>
+    <h1 class="headline">Lorena,<br>quer casar comigo?</h1>
+    <p class="sub" id="sub">é só apertar o sim ali embaixo :)</p>
+
+    <div class="buttons">
+      <button class="btn btn-yes" id="btnYes" type="button">sim, quero! 💍</button>
+      <button class="btn btn-no" id="btnNo" type="button">não</button>
+    </div>
+
+    <p class="hint" id="hint" aria-live="polite"></p>
+  </main>
+
+  <section class="celebration" id="celebration" hidden>
+    <canvas id="confetti"></canvas>
+    <div class="celebration-content">
+      <p class="eyebrow">confirmado</p>
+      <h1 class="headline">Lorena disse sim! 🎉</h1>
+      <p class="sub">Eu Te Amo e vou honrar o nosso amor em nome do Senhor Jesus.</p>
+      <button class="btn btn-again" id="btnAgain" type="button">jogar de novo</button>
+    </div>
+  </section>
+</div>
+
+<script>
+(function(){
+  var stage = document.getElementById('stage');
+  var btnYes = document.getElementById('btnYes');
+  var btnNo = document.getElementById('btnNo');
+  var hint = document.getElementById('hint');
+  var celebration = document.getElementById('celebration');
+  var btnAgain = document.getElementById('btnAgain');
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var messages = [
+    'é só apertar o sim ali embaixo :)',
+    'opa, quase te peguei',
+    'o não tá com vergonha, foge sozinho',
+    'olha ele fugindo de novo',
+    'em algum momento o sim vai parecer mais fácil',
+    'juro que o não não quer ser clicado',
+    'tá, essa dificuldade foi de propósito mesmo'
+  ];
+
+  var dodges = 0;
+  var escaped = false;
+
+  function safeBounds(){
+    var r = btnNo.getBoundingClientRect();
+    var pad = 12;
+    var minX = pad, minY = pad;
+    var maxX = Math.max(minX, window.innerWidth - r.width - pad);
+    var maxY = Math.max(minY, window.innerHeight - r.height - pad);
+    return { minX: minX, minY: minY, maxX: maxX, maxY: maxY };
+  }
+
+  function dodge(){
+    if (!celebration.hidden) return;
+
+    if (!escaped){
+      var rect = btnNo.getBoundingClientRect();
+      btnNo.style.position = 'fixed';
+      btnNo.style.left = rect.left + 'px';
+      btnNo.style.top = rect.top + 'px';
+      btnNo.style.margin = '0';
+      btnNo.offsetHeight;
+      escaped = true;
+    }
+
+    var b = safeBounds();
+    var x = b.minX + Math.random() * (b.maxX - b.minX);
+    var y = b.minY + Math.random() * (b.maxY - b.minY);
+
+    btnNo.style.left = x + 'px';
+    btnNo.style.top = y + 'px';
+
+    dodges += 1;
+    var growth = Math.min(1 + dodges * 0.045, 1.9);
+    btnYes.style.setProperty('--grow', growth);
+    btnYes.style.transform = 'scale(' + growth + ')';
+
+    hint.textContent = messages[Math.min(dodges, messages.length - 1)];
+  }
+
+  function nearButton(x, y, threshold){
+    var r = btnNo.getBoundingClientRect();
+    var cx = r.left + r.width / 2;
+    var cy = r.top + r.height / 2;
+    return Math.hypot(x - cx, y - cy) < threshold;
+  }
+
+  document.addEventListener('pointermove', function(e){
+    if (celebration.hidden === false) return;
+    if (nearButton(e.clientX, e.clientY, 90)) dodge();
+  });
+
+  document.addEventListener('touchmove', function(e){
+    if (celebration.hidden === false) return;
+    var t = e.touches[0];
+    if (t && nearButton(t.clientX, t.clientY, 90)) dodge();
+  }, { passive: true });
+
+  btnNo.addEventListener('touchstart', function(e){
+    e.preventDefault();
+    dodge();
+  }, { passive: false });
+
+  btnNo.addEventListener('click', function(e){
+    e.preventDefault();
+    dodge();
+  });
+
+  window.addEventListener('resize', function(){
+    if (!escaped) return;
+    var b = safeBounds();
+    var curX = parseFloat(btnNo.style.left) || 0;
+    var curY = parseFloat(btnNo.style.top) || 0;
+    btnNo.style.left = Math.min(Math.max(curX, b.minX), b.maxX) + 'px';
+    btnNo.style.top = Math.min(Math.max(curY, b.minY), b.maxY) + 'px';
+    resizeConfetti();
+  });
+
+  btnYes.addEventListener('click', function(){
+    stage.hidden = true;
+    celebration.hidden = false;
+    launchConfetti();
+  });
+
+  btnAgain.addEventListener('click', function(){
+    celebration.hidden = true;
+    stage.hidden = false;
+    dodges = 0;
+    escaped = false;
+    btnYes.style.transform = 'scale(1)';
+    btnNo.style.position = '';
+    btnNo.style.left = '';
+    btnNo.style.top = '';
+    btnNo.style.margin = '';
+    hint.textContent = messages[0];
+    stopConfetti();
+  });
+
+  var confettiCanvas, confettiCtx, confettiRAF;
+
+  function resizeConfetti(){
+    if (!confettiCanvas) return;
+    confettiCanvas.width = window.innerWidth;
+    confettiCanvas.height = window.innerHeight;
+  }
+
+  function drawHeart(ctx, size){
+    var s = size / 2;
+    ctx.beginPath();
+    ctx.moveTo(0, s * 0.6);
+    ctx.bezierCurveTo(-s, -s * 0.4, -s * 0.2, -s, 0, -s * 0.2);
+    ctx.bezierCurveTo(s * 0.2, -s, s, -s * 0.4, 0, s * 0.6);
+    ctx.fill();
+  }
+
+  function launchConfetti(){
+    confettiCanvas = document.getElementById('confetti');
+    confettiCtx = confettiCanvas.getContext('2d');
+    resizeConfetti();
+
+    var colors = ['#e8456b', '#f2a65a', '#ff7091', '#ffc178', '#ffffff'];
+    var count = reduceMotion ? 0 : 90;
+    var pieces = [];
+    for (var i = 0; i < count; i++){
+      pieces.push({
+        x: Math.random() * confettiCanvas.width,
+        y: -20 - Math.random() * confettiCanvas.height,
+        w: 6 + Math.random() * 6,
+        h: 8 + Math.random() * 10,
+        speed: 2 + Math.random() * 3,
+        drift: (Math.random() - 0.5) * 2,
+        rot: Math.random() * Math.PI,
+        rotSpeed: (Math.random() - 0.5) * 0.2,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        heart: Math.random() < 0.35
+      });
+    }
+
+    function frame(){
+      confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+      for (var i = 0; i < pieces.length; i++){
+        var p = pieces[i];
+        p.y += p.speed;
+        p.x += p.drift;
+        p.rot += p.rotSpeed;
+        if (p.y > confettiCanvas.height + 20){
+          p.y = -20;
+          p.x = Math.random() * confettiCanvas.width;
+        }
+        confettiCtx.save();
+        confettiCtx.translate(p.x, p.y);
+        confettiCtx.rotate(p.rot);
+        confettiCtx.fillStyle = p.color;
+        if (p.heart){ drawHeart(confettiCtx, p.w); }
+        else { confettiCtx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); }
+        confettiCtx.restore();
+      }
+      confettiRAF = requestAnimationFrame(frame);
+    }
+    frame();
+  }
+
+  function stopConfetti(){
+    if (confettiRAF) cancelAnimationFrame(confettiRAF);
+  }
+
+  hint.textContent = messages[0];
+})();
+</script>
+</body>
+</html>
