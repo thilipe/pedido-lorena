@@ -200,6 +200,15 @@
 
   .celebration-content{ position: relative; z-index: 1; }
 
+  .signature{
+    margin: 22px 0 0;
+    font-family: "Fraunces", ui-serif, Georgia, serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.15rem;
+    color: var(--accent);
+  }
+
   .btn-again{
     margin-top: 22px;
     background: transparent;
@@ -245,7 +254,8 @@
     <div class="celebration-content">
       <p class="eyebrow">confirmado</p>
       <h1 class="headline">Lorena disse sim! 🎉</h1>
-      <p class="sub">Eu Te Amo e vou honrar o nosso amor em nome do Senhor Jesus.</p>
+      <p class="sub">Eu te amo e vou honrar o nosso amor todos os dias, em nome do Senhor Jesus.</p>
+      <p class="signature">— Felipe ❤️</p>
       <button class="btn btn-again" id="btnAgain" type="button">jogar de novo</button>
     </div>
   </section>
@@ -437,7 +447,7 @@
   function stopConfetti(){
     if (confettiRAF) cancelAnimationFrame(confettiRAF);
   }
-<!-- v2 -->
+
   hint.textContent = messages[0];
 })();
 </script>
